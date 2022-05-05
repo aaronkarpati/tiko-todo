@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, StyleSheet, TouchableOpacity,Platform} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 
@@ -13,7 +13,10 @@ const AddButton = () => {
 
   return (
     <TouchableOpacity
-      style={[styles.container, {bottom: insets.bottom}]}
+      style={[
+        styles.container,
+        {bottom: Platform.OS === 'ios' ? insets.bottom : 20},
+      ]}
       onPress={() => navigation.navigate('Create')}>
       <Text style={styles.icon}> + </Text>
     </TouchableOpacity>

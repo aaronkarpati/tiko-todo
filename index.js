@@ -10,22 +10,25 @@ import {AxiosProvider} from './src/context/AxiosContext';
 import {TodoProvider} from './src/context/TodoContext';
 import {LoaderProvider} from './src/context/LoaderContext';
 import {ErrorProvider} from './src/context/ErrorContext';
+import {Host} from 'react-native-portalize';
 
 import React from 'react';
 
 const Wrapper = () => {
   return (
-    <AuthProvider>
-      <AxiosProvider>
-        <LoaderProvider>
-          <ErrorProvider>
-            <TodoProvider>
-              <App />
-            </TodoProvider>
-          </ErrorProvider>
-        </LoaderProvider>
-      </AxiosProvider>
-    </AuthProvider>
+    <Host>
+      <AuthProvider>
+        <AxiosProvider>
+          <LoaderProvider>
+            <ErrorProvider>
+              <TodoProvider>
+                <App />
+              </TodoProvider>
+            </ErrorProvider>
+          </LoaderProvider>
+        </AxiosProvider>
+      </AuthProvider>
+    </Host>
   );
 };
 
