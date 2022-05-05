@@ -1,112 +1,84 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, {useContext, useState, useCallback, useEffect} from 'react';
+import {View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import LandingScreen from './src/screens/LandingScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import CreateScreen from './src/screens/CreateScreen';
+import EditScreen from './src/screens/EditScreen';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {AuthContext} from './src/context/AuthContext';
+import * as Keychain from 'react-native-keychain';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+import Loader from './src/components/Loader';
+import {AxiosContext} from './src/context/AxiosContext';
+import Backdrop from './src/components/Backdrop';
+
+const Stack = createNativeStackNavigator();
+
+const App = () => {
+  const authContext = useContext(AuthContext);
+  const {publicAxios} = useContext(AxiosContext);
+
+  const [status, setStatus] = useState(true);
+
+  const getToken = useCallback(async () => {
+    try {
+      const value = await Keychain.getGenericPassword();
+      const token = JSON.parse(value.password);
+
+      await publicAxios.post('token/verify/', {
+        token: token.refresh,
+      });
+
+      authContext.setAuthState({
+        access: token.access || null,
+        refresh: token.refresh || null,
+        authenticated: token.access !== null,
+      });
+      setStatus(false);
+    } catch (error) {
+      setStatus(false);
+      authContext.setAuthState({
+        access: null,
+        refresh: null,
+        authenticated: false,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    getToken();
+  }, [getToken]);
+
+  if (status) {
+    return (
+      <Backdrop>
+        <Loader />
+      </Backdrop>
+    );
+  }
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        {authContext?.authState?.authenticated !== false ? (
+          <Stack.Group screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Create" component={CreateScreen} />
+            <Stack.Screen name="Edit" component={EditScreen} />
+          </Stack.Group>
+        ) : (
+          <Stack.Group screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Landing" component={LandingScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+          </Stack.Group>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
