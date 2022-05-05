@@ -67,7 +67,7 @@ const LandingScreen = ({navigation}) => {
       <View style={styles.parent}>
         <Text style={styles.title}>Welcome to Todo</Text>
         <Text style={styles.description}>
-          This project is a React Native cross platform todo application created
+          This project is a React Native cross platform Todo application created
           for the tiko challenge!
         </Text>
         <TextInput
