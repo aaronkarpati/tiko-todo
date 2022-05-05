@@ -20,6 +20,10 @@ Run the application either for iOS or android
 $ npx react-native run-android
 $ npx react-native run-ios
 ```
+If you decide to run the android APK on a physical phone, 
+you’ll need to enable debugging options on your phone to run it.
+[Enable debugging options](https://developer.android.com/studio/debug/dev-options)
+
 ## What's included
 Here's a list of what this app provides.
 
