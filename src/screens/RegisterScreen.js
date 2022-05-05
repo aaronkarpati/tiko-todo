@@ -12,6 +12,7 @@ import {AuthContext} from '../context/AuthContext';
 import {AxiosContext} from '../context/AxiosContext';
 import {ErrorContext} from '../context/ErrorContext';
 import {LoaderContext} from '../context/LoaderContext';
+import validator from 'validator';
 
 /**
  *
@@ -21,9 +22,13 @@ import {LoaderContext} from '../context/LoaderContext';
 const RegisterScreen = ({navigation}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+
+  const [emailValidated, setEmailValidated] = useState(false);
+  const [passwordValidated, setPasswordValidated] = useState(false);
 
   const {publicAxios} = useContext(AxiosContext);
   const {setUser} = useContext(AuthContext);
@@ -56,6 +61,16 @@ const RegisterScreen = ({navigation}) => {
     }
   };
 
+  const validateEmail = text => {
+    setEmailValidated(validator.isEmail(text));
+    setEmail(text);
+  };
+
+  const validatePassword = text => {
+    setPasswordValidated(password === text);
+    setPassword2(text);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.parent}>
@@ -84,26 +99,33 @@ const RegisterScreen = ({navigation}) => {
         />
         <TextInput
           placeholder="Email"
-          style={styles.input}
+          autoCapitalize="none"
+          style={[styles.input, {color: emailValidated ? 'black' : 'red'}]}
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={text => validateEmail(text)}
         />
         <TextInput
-          placeholder="Password"
-          style={styles.input}
+          placeholder="Password (min 8)"
+          style={[styles.input, {color: passwordValidated ? 'black' : 'red'}]}
           value={password}
           secureTextEntry={true}
           onChangeText={text => setPassword(text)}
         />
         <TextInput
-          placeholder="Password 2"
-          style={styles.input}
+          placeholder="Password 2 (min 8)"
+          style={[styles.input, {color: passwordValidated ? 'black' : 'red'}]}
           value={password2}
           secureTextEntry={true}
-          onChangeText={text => setPassword2(text)}
+          onChangeText={text => validatePassword(text)}
         />
-        <TouchableOpacity onPress={register}>
-          <View style={styles.button}>
+        <TouchableOpacity
+          disabled={!passwordValidated || !emailValidated}
+          onPress={register}>
+          <View
+            style={[
+              styles.button,
+              {opacity: !passwordValidated || !emailValidated ? 0.8 : 1},
+            ]}>
             <Text style={styles.buttonTitle}>Register</Text>
           </View>
         </TouchableOpacity>

@@ -72,6 +72,7 @@ const LandingScreen = ({navigation}) => {
         </Text>
         <TextInput
           placeholder="Email"
+          autoCapitalize="none"
           style={styles.input}
           value={email}
           onChangeText={text => setEmail(text)}
