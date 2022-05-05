@@ -3,6 +3,10 @@ import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 
+/**
+ *
+ * @returns A new global add button that can be used on all screens.
+ */
 const AddButton = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();

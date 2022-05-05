@@ -5,6 +5,11 @@ import Alert from '../components/Alert';
 const ErrorContext = createContext(null);
 const {Provider} = ErrorContext;
 
+/**
+ *
+ * @param {} children
+ * @returns A context that handles the error state, and displays a global alert accordingly.
+ */
 const ErrorProvider = ({children}) => {
   const [error, setError] = useState(null);
 

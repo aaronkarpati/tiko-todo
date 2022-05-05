@@ -2,6 +2,10 @@ import React, {useContext} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {AuthContext} from '../context/AuthContext';
 
+/**
+ *
+ * @returns A header component that is able to display the user's name and handle the login event.
+ */
 const Header = () => {
   const {logout, user} = useContext(AuthContext);
 

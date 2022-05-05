@@ -4,6 +4,11 @@ import BackButton from '../components/BackButton';
 import TodoForm from '../components/TodoForm';
 import {TodoContext} from '../context/TodoContext';
 
+/**
+ *
+ * @param {} navigation
+ * @returns A screen that displays the necessary components for creating a Todo.
+ */
 const CreateScreen = ({navigation}) => {
   const {createTodo} = useContext(TodoContext);
 

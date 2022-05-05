@@ -10,6 +10,13 @@ import BackButton from '../components/BackButton';
 import TodoForm from '../components/TodoForm';
 import {TodoContext} from '../context/TodoContext';
 
+/**
+ *
+ * @param {} route
+ * @param {} navigation
+ * @returns A screen that presents the necessary componenets for the edit and delete operations,
+ * for a Todo item.
+ */
 const EditScreen = ({route, navigation}) => {
   const {id} = route.params;
   const {todos, editTodo, deleteTodo} = useContext(TodoContext);

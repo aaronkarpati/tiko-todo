@@ -3,6 +3,12 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {TodoContext} from '../context/TodoContext';
 
+/**
+ *
+ * @param {id,description,done} item
+ * @returns A view that displays information about the Todo item object
+ * and gives the possibility to mark as done.
+ */
 const TodoItem = ({item}) => {
   const navigation = useNavigation();
 

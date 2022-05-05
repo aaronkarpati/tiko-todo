@@ -15,6 +15,11 @@ import * as Keychain from 'react-native-keychain';
 import {ErrorContext} from '../context/ErrorContext';
 import {LoaderContext} from '../context/LoaderContext';
 
+/**
+ *
+ * @param {} navigation
+ * @returns A screen that lets the user log in to an existing account or redirect to the registration screen.
+ */
 const LandingScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -85,7 +90,7 @@ const LandingScreen = ({navigation}) => {
         </TouchableOpacity>
 
         <View style={styles.registerContainer}>
-          <Text>I dont have an account yet </Text>
+          <Text>I dont have an account yet. </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
             <Text style={styles.registerTitle}>Register</Text>
           </TouchableOpacity>

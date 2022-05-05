@@ -1,6 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
+/**
+ *
+ * @param {title,description} initialValues
+ * @returns A global alert component that processes displays error messeges.
+ */
 const Alert = ({initialValues}) => {
   const processObject = object => {
     for (const [key, value] of Object.entries(object)) {

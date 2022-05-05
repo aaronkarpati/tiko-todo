@@ -4,6 +4,11 @@ import * as Keychain from 'react-native-keychain';
 const AuthContext = createContext(null);
 const {Provider} = AuthContext;
 
+/**
+ *
+ * @param {} children
+ * @returns A contect hat handles the authentication state of the user.
+ */
 const AuthProvider = ({children}) => {
   const [authState, setAuthState] = useState({
     access: null,

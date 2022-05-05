@@ -6,6 +6,12 @@ import {LoaderContext} from './LoaderContext';
 const TodoContext = createContext(null);
 const {Provider} = TodoContext;
 
+/**
+ *
+ * @param {} children
+ * @returns A context that handles all the necessary state and API calls/changes from the tiko API,
+ * in regards of the Todo CRUD operations.
+ */
 const TodoProvider = ({children}) => {
   const {authAxios} = useContext(AxiosContext);
   const {setLoading} = useContext(LoaderContext);

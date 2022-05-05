@@ -1,6 +1,10 @@
 import React from 'react';
 import {View, StyleSheet, ActivityIndicator} from 'react-native';
 
+/**
+ *
+ * @returns A loader component that displays an activity indicator during loading scenarios.
+ */
 const Loader = () => {
   return (
     <View style={styles.container}>

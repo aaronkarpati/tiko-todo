@@ -2,6 +2,10 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
+/**
+ *
+ * @returns A global back button, thath can return to the previous screen in the navigation stack.
+ */
 const BackButton = () => {
   const navigation = useNavigation();
 

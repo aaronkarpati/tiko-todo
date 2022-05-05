@@ -5,6 +5,11 @@ import Loader from '../components/Loader';
 const LoaderContext = createContext(null);
 const {Provider} = LoaderContext;
 
+/**
+ *
+ * @param {} children
+ * @returns A context that handles the loading state and returns a global loader view accordingly.
+ */
 const LoaderProvider = ({children}) => {
   const [loading, setLoading] = useState(false);
 

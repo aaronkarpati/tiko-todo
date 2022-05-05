@@ -6,6 +6,11 @@ import TodoItem from '../components/TodoItem';
 import {TodoContext} from '../context/TodoContext';
 import HomeImage from '../assets/multi-tasking-ceo-handling-multiple-departments-with-ease.svg';
 
+/**
+ *
+ * @param {} navigation
+ * @returns A screen that displays the list of Todo items, as well as fetch it if necessary.
+ */
 const HomeScreen = ({navigation}) => {
   const {todos, getTodos} = useContext(TodoContext);
 

@@ -13,6 +13,11 @@ import {AxiosContext} from '../context/AxiosContext';
 import {ErrorContext} from '../context/ErrorContext';
 import {LoaderContext} from '../context/LoaderContext';
 
+/**
+ *
+ * @param {} navigation
+ * @returns A screen that presents the registration form for a user.
+ */
 const RegisterScreen = ({navigation}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -59,8 +64,8 @@ const RegisterScreen = ({navigation}) => {
         </View>
         <Text style={[styles.title]}>Register</Text>
         <Text style={styles.description}>
-          This project is a React Native cross platform todo application created
-          for the tiko challenge!
+          Here you are able to create a new account for Todo, don't worry it
+          only takes a few seconds.
         </Text>
 
         <TextInput

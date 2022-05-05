@@ -7,6 +7,12 @@ import * as Keychain from 'react-native-keychain';
 const AxiosContext = createContext();
 const {Provider} = AxiosContext;
 
+/**
+ *
+ * @param {} children
+ * @returns A context that handles the request formulation towards the Tiko API,
+ * it attaches two interceptors, one for the Bearer token and one for refreshing the accsess token.
+ */
 const AxiosProvider = ({children}) => {
   const authContext = useContext(AuthContext);
 

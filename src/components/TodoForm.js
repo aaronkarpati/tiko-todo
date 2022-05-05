@@ -7,6 +7,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+/**
+ *
+ * @param {()=>{}} onSubmit
+ * @param {{description}} initialValues
+ * @returns A form that handles the creation and edit functionalities for the Todo item.
+ */
 const TodoForm = ({onSubmit, initialValues}) => {
   const [description, setDescription] = useState(initialValues.description);
 
